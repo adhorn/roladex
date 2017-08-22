@@ -11,28 +11,28 @@ def scan():
     message = "The object is "+dist+" centimeters away"
     return message
 
-    def callbackMove(client, userdata, message):
-        print "Topic="+message.topic
-        print "Message="+message.payload
-        cmd = message.payload
-        if cmd == "forward":
-            fwd()    # Move forward
-        elif cmd == "left":
-            left()    # Turn left
-        elif cmd == "right":
-            right()    # Turn Right
-        elif cmd == "backward":
-            bwd()    # Move back
-        elif cmd == "stop":
-            stop()    # Stop
-        elif cmd == "faster":
-            increase_speed()    # Increase speed
-        elif cmd == "slower":
-            decrease_speed()    # Decrease speed
-        else:
-            print "Wrong Command, Please Enter Again"
-            time.sleep(1)
-            stop()
+def callbackMove(client, userdata, message):
+    print "Topic="+message.topic
+    print "Message="+message.payload
+    cmd = message.payload
+    if cmd == "forward":
+        fwd()    # Move forward
+    elif cmd == "left":
+        left()    # Turn left
+    elif cmd == "right":
+        right()    # Turn Right
+    elif cmd == "backward":
+        bwd()    # Move back
+    elif cmd == "stop":
+        stop()    # Stop
+    elif cmd == "faster":
+        increase_speed()    # Increase speed
+    elif cmd == "slower":
+        decrease_speed()    # Decrease speed
+    else:
+        print "Wrong Command, Please Enter Again"
+        time.sleep(1)
+        stop()
 
 
 def callbackScan(client, userdata, message):
