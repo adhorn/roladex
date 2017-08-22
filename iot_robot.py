@@ -38,5 +38,6 @@ client.subscribe(topicMove, 1, callbackMove)
 
 while True:
     time.sleep(10)
-    client.unsubscribe(topicMove)
-    iot_connect.disconnectIot(client)
+
+client.unsubscribe(topicMove)
+iot_connect.disconnectIot(client)
