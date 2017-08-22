@@ -34,6 +34,9 @@ servo(90)
 
 # Connect to IoT Gateway and subscribe to topics
 client = iot_connect.connectIot()
+if client:
+    print("successfully connected to AWS IoT")
+
 client.subscribe(topicMove, 1, callbackMove)
 
 while True:
@@ -41,3 +44,4 @@ while True:
 
 client.unsubscribe(topicMove)
 iot_connect.disconnectIot(client)
+disable_servo()
