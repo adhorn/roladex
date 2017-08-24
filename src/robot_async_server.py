@@ -5,6 +5,7 @@ import os.path
 import signal
 import threading
 import robot_controller
+import time
 
 LOG_FILENAME = "/tmp/robot_web_server_log.txt"
 logging.basicConfig(filename=LOG_FILENAME, level=logging.DEBUG)
@@ -67,6 +68,7 @@ if __name__ == "__main__":
     # args=[ robotConfig, robotConnectionResultQueue ] )
     robotConnectionThread.start()
 
+    time.sleep(10)
     # Shut down code
     robotConnectionThread.join()
 

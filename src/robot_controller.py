@@ -38,7 +38,7 @@ class RobotController:
         print("__ Closing __")
 
     def normaliseJoystickData(self, joystickX, joystickY):
-        stickVectorLength = math.sqrt( joystickX**2 + joystickY**2 )
+        stickVectorLength = math.sqrt(joystickX**2 + joystickY**2)
         if stickVectorLength > 1.0:
             joystickX /= stickVectorLength
             joystickY /= stickVectorLength
