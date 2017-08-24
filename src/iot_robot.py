@@ -32,10 +32,10 @@ def callbackMove(client, userdata, message):
     elif cmd == "slower":
         decrease_speed()    # Decrease speed
 
-    elif key_press.isdigit():
-        if int(key_press) in servo_range:
+    elif cmd.isdigit():
+        if int(cmd) in servo_range:
             enable_servo()
-            servo(int(key_press)*14)
+            servo(int(cmd)*14)
             time.sleep(1)
             disable_servo()
     else:
