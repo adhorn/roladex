@@ -75,10 +75,6 @@ if __name__ == "__main__":
         #args=[ robotConfig, robotConnectionResultQueue ] )
     robotConnectionThread.start()
 
-    robotPeriodicCallback = tornado.ioloop.PeriodicCallback(
-        robotUpdate, 100)
-    robotPeriodicCallback.start()
-
     # Shut down code
     robotConnectionThread.join()
 
