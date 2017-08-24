@@ -4,6 +4,9 @@ from gopigo import *
 from iot_topics import *
 
 
+servo_range = range(2, 8)
+
+
 def callbackMove(client, userdata, message):
     print("Topic: ") + message.topic
     print("Message: ") + message.payload
@@ -28,6 +31,13 @@ def callbackMove(client, userdata, message):
         increase_speed()    # Increase speed
     elif cmd == "slower":
         decrease_speed()    # Decrease speed
+
+    elif key_press.isdigit():
+        if int(key_press) in servo_range:
+            enable_servo()
+            servo(int(key_press)*14)
+            time.sleep(1)
+            disable_servo()
     else:
         print("Wrong Command, Please Enter Again")
     time.sleep(1)
