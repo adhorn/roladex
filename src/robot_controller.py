@@ -31,8 +31,8 @@ class RobotController:
 	#-----------------------------------------------------------------------------------------------
 	def __init__( self ):
 		gopigo.set_speed(200)
-		gopigo.stop()
 		gopigo.fwd()
+		gopigo.stop()
 
 		self.lastServoSettingsSendTime = 0.0
 		self.lastUpdateTime = 0.0
