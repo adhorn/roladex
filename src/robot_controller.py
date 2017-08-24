@@ -1,112 +1,104 @@
 from __future__ import print_function
 from __future__ import division
-from builtins import input
-# the above lines are meant for Python3 compatibility.
-# they force the use of Python3 functionality for print(),
-# the integer division and input()
-# mind your parentheses!
-
-import logging
 import math
 import time
-try:
-	import Queue as queue
-except:
-	import queue
-import threading
 import gopigo
-#---------------------------------------------------------------------------------------------------
-debug=0
+
+
+debug = 0
+
+
 class RobotController:
 
-	MAX_UPDATE_TIME_DIFF = 0.25
-	TIME_BETWEEN_SERVO_SETTING_UPDATES = 1.0
+    MAX_UPDATE_TIME_DIFF = 0.25
+    TIME_BETWEEN_SERVO_SETTING_UPDATES = 1.0
 
-	JOYSTICK_DEAD_ZONE = 0.1
+    JOYSTICK_DEAD_ZONE = 0.1
 
-	MOTION_COMMAND_TIMEOUT = 2.0 # If no commands for the motors are recieved in this time then
-								 # the motors (drive and servo) are set to zero speed
-	speed_l=200
-	speed_r=200
-	#-----------------------------------------------------------------------------------------------
-	def __init__( self ):
-		gopigo.set_speed(200)
-		gopigo.fwd()
-		gopigo.stop()
+    MOTION_COMMAND_TIMEOUT = 2.0
+    # If no commands for the motors are recieved in this time then
+    # the motors (drive and servo) are set to zero speed
+    speed_l = 200
+    speed_r = 200
 
-		self.lastServoSettingsSendTime = 0.0
-		self.lastUpdateTime = 0.0
-		self.lastMotionCommandTime = time.time()
+    def __init__(self):
+        gopigo.set_speed(200)
+        gopigo.fwd()
+        gopigo.stop()
 
-	#-----------------------------------------------------------------------------------------------
-	def __del__( self ):
+        self.lastServoSettingsSendTime = 0.0
+        self.lastUpdateTime = 0.0
+        self.lastMotionCommandTime = time.time()
 
-		self.disconnect()
+    def __del__(self):
 
-	#-----------------------------------------------------------------------------------------------
-	def disconnect( self ):
-		print ("__ Closing __")
+        self.disconnect()
 
-	def normaliseJoystickData( self, joystickX, joystickY ):
-		stickVectorLength = math.sqrt( joystickX**2 + joystickY**2 )
-		if stickVectorLength > 1.0:
-			joystickX /= stickVectorLength
-			joystickY /= stickVectorLength
+    def disconnect(self):
+        print("__ Closing __")
 
-		if stickVectorLength < self.JOYSTICK_DEAD_ZONE:
-			joystickX = 0.0
-			joystickY = 0.0
+    def normaliseJoystickData(self, joystickX, joystickY):
+        stickVectorLength = math.sqrt( joystickX**2 + joystickY**2 )
+        if stickVectorLength > 1.0:
+            joystickX /= stickVectorLength
+            joystickY /= stickVectorLength
 
-		return ( joystickX, joystickY )
+        if stickVectorLength < self.JOYSTICK_DEAD_ZONE:
+            joystickX = 0.0
+            joystickY = 0.0
 
-	def centreNeck( self ):
-		#gopigo.set_right_speed(0)
-		pass
+        return (joystickX, joystickY)
 
-	def setMotorJoystickPos( self, joystickX, joystickY ):
-		joystickX, joystickY = self.normaliseJoystickData( joystickX, joystickY )
-		if debug:
-			print( "Left joy",joystickX, joystickY)
-			#print self.speed_l*joystickY
-		#gopigo.set_left_speed(int(self.speed_l*joystickY))
-		#gopigo.fwd()
-		if joystickX > .5:
-			print( "Left")
-			gopigo.left()
-		elif joystickX <-.5:
-			print ("Right")
-			gopigo.right()
-		elif joystickY > .5:
-			print ("Fwd")
-			gopigo.fwd()
-		elif joystickY < -.5:
-			print ("Back")
-			gopigo.bwd()
-		else:
-			print ("Stop")
-			gopigo.stop()
+    def centreNeck(self):
+        #gopigo.set_right_speed(0)
+        pass
 
-	def setNeckJoystickPos( self, joystickX, joystickY ):
-		#print ("g")
-		joystickX, joystickY = self.normaliseJoystickData( joystickX, joystickY )
-		if debug:
-			print ("Right joy",joystickX, joystickY)
-			#print (self.speed_r*joystickY)
-		#gopigo.set_right_speed(int(self.speed_r*joystickY))
-		#gopigo.fwd()
-		#self.lastMotionCommandTime = time.time()
+    def setMotorJoystickPos(self, joystickX, joystickY):
+        joystickX, joystickY = self.normaliseJoystickData(joystickX, joystickY)
+        if debug:
+            print("Left joy", joystickX, joystickY)
+            #print self.speed_l*joystickY
+        #gopigo.set_left_speed(int(self.speed_l*joystickY))
+        #gopigo.fwd()
+        if joystickX > .5:
+            print("Left")
+            gopigo.left()
+        elif joystickX < -.5:
+            print("Right")
+            gopigo.right()
+        elif joystickY > .5:
+            print("Fwd")
+            gopigo.fwd()
+        elif joystickY < -.5:
+            print("Back")
+            gopigo.bwd()
+        else:
+            print("Stop")
+            gopigo.stop()
 
-	def update( self ):
-		if debug:
-			print ("Updating")
-		curTime = time.time()
-		timeDiff = min( curTime - self.lastUpdateTime, self.MAX_UPDATE_TIME_DIFF )
+    def setNeckJoystickPos(self, joystickX, joystickY):
+        #print ("g")
+        joystickX, joystickY = self.normaliseJoystickData(joystickX, joystickY)
+        if debug:
+            print("Right joy", joystickX, joystickY)
+            #print (self.speed_r*joystickY)
+        #gopigo.set_right_speed(int(self.speed_r*joystickY))
+        #gopigo.fwd()
+        #self.lastMotionCommandTime = time.time()
 
-		# Turn off the motors if we haven't received a motion command for a while
-		#if curTime - self.lastMotionCommandTime > self.MOTION_COMMAND_TIMEOUT:
-		#	self.leftMotorSpeed = 0.0
-		#	self.rightMotorSpeed = 0.0
-		#	self.panSpeed = 0.0
-		#	self.tiltSpeed = 0.0
+    def update(self):
+        if debug:
+            print("Updating")
+        curTime = time.time()
+        timeDiff = min(
+            curTime - self.lastUpdateTime, self.MAX_UPDATE_TIME_DIFF
+        )
 
-		self.lastUpdateTime = curTime
+        # Turn off the motors if we haven't received a motion command for a while
+        #if curTime - self.lastMotionCommandTime > self.MOTION_COMMAND_TIMEOUT:
+        #   self.leftMotorSpeed = 0.0
+        #   self.rightMotorSpeed = 0.0
+        #   self.panSpeed = 0.0
+        #   self.tiltSpeed = 0.0
+
+        self.lastUpdateTime = curTime
