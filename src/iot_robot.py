@@ -4,7 +4,7 @@ from gopigo import *
 from iot_topics import *
 
 
-servo_range = range(2, 18)
+servo_range = range(2, 13)
 
 
 def callbackMove(client, userdata, message):
