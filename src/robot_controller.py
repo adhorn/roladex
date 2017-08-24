@@ -24,6 +24,7 @@ class RobotController:
     def __init__(self):
         gopigo.set_speed(200)
         gopigo.fwd()
+        time.sleep(5)
         gopigo.stop()
 
         self.lastServoSettingsSendTime = 0.0

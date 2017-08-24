@@ -67,8 +67,6 @@ if __name__ == "__main__":
     )
     # args=[ robotConfig, robotConnectionResultQueue ] )
     robotConnectionThread.start()
-
-    time.sleep(10)
     # Shut down code
     robotConnectionThread.join()
 
