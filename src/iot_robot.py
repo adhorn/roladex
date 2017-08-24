@@ -5,8 +5,8 @@ from iot_topics import *
 
 
 def callbackMove(client, userdata, message):
-    print "Topic="+message.topic
-    print "Message="+message.payload
+    print("Topic: ") + message.topic
+    print("Message: ") + message.payload
     cmd = message.payload
     if cmd == "forward":
         fwd()    # Move forward
@@ -29,7 +29,7 @@ def callbackMove(client, userdata, message):
     elif cmd == "slower":
         decrease_speed()    # Decrease speed
     else:
-        print "Wrong Command, Please Enter Again"
+        print("Wrong Command, Please Enter Again")
     time.sleep(1)
     stop()
 

@@ -4,13 +4,13 @@ from iot_config import *
 
 def connectIot():
     print("connecting to AWS IoT")
-    myMQTTClient = AWSIoTMQTTClient(CLIENT_ID)
-    myMQTTClient.configureEndpoint(IOT_ENDPOINT, IOT_PORT)
-    myMQTTClient.configureCredentials(ROOT_CA, PRIVATE_KEY, CERTIFICATE)
-    myMQTTClient.connect()
-    return myMQTTClient
+    IoTMQTTClient = AWSIoTMQTTClient(CLIENT_ID)
+    IoTMQTTClient.configureEndpoint(IOT_ENDPOINT, IOT_PORT)
+    IoTMQTTClient.configureCredentials(ROOT_CA, PRIVATE_KEY, CERTIFICATE)
+    IoTMQTTClient.connect()
+    return IoTMQTTClient
 
 
-def disconnectIot(myMQTTClient):
+def disconnectIot(IoTMQTTClient):
     print("discconnecting from AWS IoT")
-    myMQTTClient.disconnect()
+    IoTMQTTClient.disconnect()

@@ -30,6 +30,14 @@ def createRobot(resultQueue):
     resultQueue.put(r)
 
 
+Class IoTConnectionHandler():
+    def on_message(self, message):
+        pass
+
+    def on_close(self):
+        logging.info('IoT connection closed')
+
+
 def robotUpdate():
 
     global robot
