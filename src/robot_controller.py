@@ -32,7 +32,7 @@ class RobotController:
 	def __init__( self ):
 		gopigo.set_speed(200)
 		gopigo.stop()
-		#gopigo.fwd()
+		gopigo.fwd()
 
 		self.lastServoSettingsSendTime = 0.0
 		self.lastUpdateTime = 0.0
@@ -45,7 +45,7 @@ class RobotController:
 
 	#-----------------------------------------------------------------------------------------------
 	def disconnect( self ):
-		print ("Closing")
+		print ("__ Closing __")
 
 	def normaliseJoystickData( self, joystickX, joystickY ):
 		stickVectorLength = math.sqrt( joystickX**2 + joystickY**2 )
