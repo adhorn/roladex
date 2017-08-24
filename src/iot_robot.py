@@ -10,12 +10,18 @@ def callbackMove(client, userdata, message):
     cmd = message.payload
     if cmd == "forward":
         fwd()    # Move forward
+    elif cmd == "foooorward":
+        for _ in range(4):
+            fwd()
     elif cmd == "left":
         left()    # Turn left
     elif cmd == "right":
         right()    # Turn Right
     elif cmd == "backward":
         bwd()    # Move back
+    elif cmd == "baaaackward":
+        for _ in range(4):
+            fwd()
     elif cmd == "stop":
         stop()    # Stop
     elif cmd == "faster":
@@ -30,6 +36,12 @@ def callbackMove(client, userdata, message):
 
 def callbackLive(client, userdata, message):
     print("starting live video feed")
+    pass
+
+
+def callbackSnap(client, userdata, message):
+    print("hold on! taking a snap picture :)")
+    pass
 
 
 # Connect to IoT Gateway and subscribe to topics
