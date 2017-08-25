@@ -1,5 +1,6 @@
 *.HIDDEN_README
 iot_config.py
+iot_config_pub.py
 .DS_Store
 
 # Byte-compiled / optimized / DLL files
