@@ -4,7 +4,7 @@ from gopigo import *
 from iot_topics import *
 
 
-servo_range = range(2, 13)
+servo_range = range(2, 12)
 
 
 def callbackMove(client, userdata, message):
@@ -37,16 +37,7 @@ def callbackMove(client, userdata, message):
     time.sleep(1)
     stop()
 
-
-def callbackLive(client, userdata, message):
-    print("starting live video feed")
-    pass
-
-
-def callbackSnap(client, userdata, message):
-    print("hold on! taking a snap picture :)")
-    pass
-
+enable_servo()
 
 # Connect to IoT Gateway and subscribe to topics
 client = iot_connect.connectIot()
@@ -60,3 +51,5 @@ while True:
 
 client.unsubscribe(topicMove)
 iot_connect.disconnectIot(client)
+
+disable_servo()
