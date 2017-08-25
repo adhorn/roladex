@@ -11,25 +11,19 @@ def callbackMove(client, userdata, message):
     print("Topic: ") + message.topic
     print("Message: ") + message.payload
     cmd = message.payload
-    if cmd == "forward":
+    if cmd == "w":
         fwd()    # Move forward
-    elif cmd == "foooorward":
-        for _ in range(4):
-            fwd()
-    elif cmd == "left":
+    elif cmd == "a":
         left()    # Turn left
-    elif cmd == "right":
+    elif cmd == "d":
         right()    # Turn Right
-    elif cmd == "backward":
+    elif cmd == "x":
         bwd()    # Move back
-    elif cmd == "baaaackward":
-        for _ in range(4):
-            fwd()
-    elif cmd == "stop":
+    elif cmd == "s":
         stop()    # Stop
-    elif cmd == "faster":
+    elif cmd == "g":
         increase_speed()    # Increase speed
-    elif cmd == "slower":
+    elif cmd == "f":
         decrease_speed()    # Decrease speed
 
     elif cmd.isdigit():
