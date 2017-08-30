@@ -25,7 +25,13 @@ def callbackMove(client, userdata, message):
         increase_speed()    # Increase speed
     elif cmd == "f":
         decrease_speed()    # Decrease speed
-
+    elif cmd == "k":
+        enable_servo()
+        servo(14)
+        time.sleep(1)
+        servo(100)
+        time.sleep(1)
+        disable_servo()
     elif cmd.isdigit():
         if int(cmd) in servo_range:
             enable_servo()

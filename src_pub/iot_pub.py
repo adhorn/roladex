@@ -15,7 +15,7 @@ def on_press(key):
         k = key.name  # other keys
     if key == keyboard.Key.esc:
         return False  # stop listener
-    if k in ['w', 'x', 'a', 'd']:  # keys interested
+    if k in ['w', 'x', 'a', 'd', 's', 'g', 'f', 'k']:  # keys interested
         print('Key pressed: ' + k)
         client.publish(topicMove, k, 1)
         return True
