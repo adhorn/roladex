@@ -31,7 +31,8 @@ def callbackMove(client, userdata, message):
         time.sleep(1)
         servo(150)
         time.sleep(1)
-        servo(90)
+        servo(100)
+        time.sleep(1)
         disable_servo()
     elif cmd.isdigit():
         if int(cmd) in servo_range:
